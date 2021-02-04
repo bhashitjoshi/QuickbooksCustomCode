@@ -1,0 +1,212 @@
+<!--
+  @description       :  This is the component from which we are creating invoice and customer in quickbook
+  @author            : Ashish Sharma
+  @group             : 
+  @last modified on  : 09-14-2020
+  Modifications Log 
+  Ver   Date         Author           Modification
+  1.0   09-14-2020   Ashish sharma   Initial Version
+-->
+<template>
+  <template if:true={accountId} style="height:30rem;width:auto">
+
+    <div class="modal-header slds-modal__header slds-size_1-of-1">
+      Generate Invoice
+    </div> 
+
+    <!--Process Indicator-->
+    <div class="slds-modal__content slds-size_1-of-1">
+      <div class="slds-theme_default">
+        <div class="slds-p-around_medium" style="margin:3%">
+          <lightning-progress-indicator type="path" current-step={selectedStep} style="margin:3%">
+
+            <lightning-progress-step label="Select Quote Items" onstepfocus={selectStep1} value="Step1">
+            </lightning-progress-step>
+            <lightning-progress-step label="Generate Invoice" onstepfocus={selectStep4} value="Step4">
+            </lightning-progress-step>
+          </lightning-progress-indicator>
+
+          <!--Data table for QuoteLineItems List-->
+          <template if:true={step1}>
+            <div style="height: 350px;">
+              <lightning-datatable class="searchTable" key-field="Id" data={quoteLineItemsList}
+                columns={quoteLineItemColumn} onrowselection={getSelectedName} selected-rows={preSelectedRows}>
+              </lightning-datatable>
+            </div>
+          </template>
+
+
+          <template if:true={step4}>
+            <div class="slds-align_absolute-center" style="padding-bottom:10px">
+              <!--Choose Customer-->
+              <lightning-radio-group name="radioGroup" style="vertical-align: middle;" options={options} value={value}
+                type="radio" onchange={handleRadioChange}>
+              </lightning-radio-group>
+            </div>
+          </template>
+          <template if:true={showspinner}>
+            <div class="slds-is-relative">
+              <lightning-spinner alternative-text="Loading"></lightning-spinner>
+            </div>
+          </template>
+          <template if:true={option1}>
+            <!--Change customer to contact-->
+            <!--New Customer record edit fomr-->
+            <div class="slds-scrollable_y" style="height:300px;">
+              <div class="slds-grid slds-grid_vertical" style="background-color: white; ">
+                <lightning-record-edit-form object-api-name="Contact" onsuccess={handleSuccess}>
+                  <lightning-messages> </lightning-messages>
+
+                  <div class="slds-hide">
+                    <lightning-input-field field-name='CheckBeforeInsert__c' value={CheckBeforeInsert}>
+                    </lightning-input-field>
+                  </div>
+
+                  <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                      <lightning-input-field class="Companyname" field-name="AccountId" value={accountId}>
+                      </lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                      <lightning-input-field class="Phone" field-name="Phone">
+                      </lightning-input-field>
+                    </div>
+                  </div>
+
+                  <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                      <lightning-input-field class="Title" field-name="Title">
+                      </lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                      <lightning-input-field class="FirstName" field-name="FirstName">
+                      </lightning-input-field>
+                    </div>
+                  </div>
+
+                  <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                      <lightning-input-field class="LastName" field-name="LastName">
+                      </lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                      <lightning-input-field class="Email" field-name="Email" required>
+                      </lightning-input-field>
+                    </div>
+                  </div>
+
+                  <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                      <lightning-input-field class="CustomerName" field-name="Display_Name__c" required>
+                      </lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                      <lightning-input-field class="Street" field-name="MailingStreet">
+                      </lightning-input-field>
+                    </div>
+                  </div>
+
+                  <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                      <lightning-input-field class="City" field-name="MailingCity">
+                      </lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                      <lightning-input-field class="PostalCode" field-name="MailingPostalCode">
+                      </lightning-input-field>
+                    </div>
+                  </div>
+
+                  <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                      <lightning-input-field class="state" field-name="MailingState">
+                      </lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                      <lightning-input-field class="Country" field-name="MailingCountry">
+                      </lightning-input-field>
+                    </div>
+                  </div>
+
+                </lightning-record-edit-form>
+              </div>
+            </div>
+          </template>
+
+          <!--Customers list related to the account-->
+
+          <template if:true={option2}>
+
+
+            <div class="slds-scrollable_y" style="height:300px;">
+              <!--Change customer to contact-->
+              <table class="slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols"
+                role="grid">
+                <thead>
+                  <th scope="col">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Name
+                  </th>
+                  <th scope="col" >
+                    &nbsp;&nbsp;&nbsp; Email
+                  </th>
+                  <th scope="col" >
+                     Environment
+                  </th>
+                </thead>
+
+                <template for:each={existingCustomersList} for:item='customer'>
+
+                  <tr class="slds-hint-parent" key={customer.Id}>
+
+                    <td role="gridcell">
+                      <span class="slds-radio">
+                        <input type="radio" id={customer.Id} value={customer.Id} name="options" tabindex="-1"
+                          aria-labelledby="radio-button-label-01 column-group-header" onclick={getSelectedCustomer} />
+                        <label class="slds-radio__label" for={customer.Id} id={customer.Id}>
+
+                          <span class="slds-radio_faux"></span>
+
+                          &nbsp; {customer.Display_Name__c}
+
+                        </label>
+                      </span>
+                    </td>
+
+                    <td role="gridcell" >
+                      <div class="slds-truncate">{customer.Email}</div>
+                    </td>
+
+                    <td role="gridcell" >
+                      <div class="slds-truncate">{customer.Environment__c}</div>
+                    </td>
+
+                  </tr>
+
+                </template>
+
+              </table>
+            </div>
+
+          </template>
+         
+
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer slds-modal__footer slds-size_1-of-1" style="position: fixed;">
+      <template if:false={step1}>
+        <lightning-button label="Back" class="slds-m-left_x-small" onclick={handlePrev}></lightning-button>
+      </template>
+      <template if:false={isSelectStep4}>
+        <lightning-button variant="brand" class="slds-m-left_x-small" label="Next" onclick={selectStep4}
+          disabled={nextDisabled}></lightning-button>
+      </template>
+      <template if:true={isSelectStep4}>
+        <lightning-button variant="brand" class="slds-m-left_x-small" label="Finish" onclick={handleFinish}
+          disabled={finishDisabled}></lightning-button>
+      </template>
+    </div>
+
+  </template>
+</template>

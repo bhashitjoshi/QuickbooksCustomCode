@@ -1,0 +1,14 @@
+<apex:page controller="QuickbookConnectionVf" action="{!doFetchAccessToken}">
+  <apex:slds />
+    <apex:form id="theForm" >
+      <apex:pageblock >
+          <apex:pageMessages ></apex:pageMessages>
+    <apex:image id="theImage" value="{!$Resource.QuickBooks_Logo}" width="300" height="200" />
+
+                        <div align="center" draggable="false" >
+              <apex:commandButton action="{!doAuthorizationQuickBooks}" value="Authorization" styleClass="buttonStyle" style="background:LightBlue;width:200px;height:50px;" />
+                    </div>
+
+      </apex:pageblock>
+  </apex:form>
+</apex:page>

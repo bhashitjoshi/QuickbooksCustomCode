@@ -1,0 +1,124 @@
+<!--
+  @description       : This is the main VF page through which we are authenticating salesforce with Quickbook
+  @author            : Ashish Sharma
+  @group             : 
+  @last modified on  : 09-14-2020
+  Modifications Log 
+  Ver   Date         Author           Modification
+  1.0   09-14-2020   Ashish Sharma   Initial Version
+-->
+<apex:page controller="QuickBookConnectionApex" action="{!doFetchAccessToken}">
+    <apex:slds />
+    <!-- This is use to switch the tab and close the VF page-->
+    <script>
+    
+    function closeWin() {
+        
+        
+        window.close();   // Closes the new window
+        
+    }
+
+    function switchTab( asd)
+    {
+    
+        if(asd =='tab-default-2__item')
+        {
+            var element1 = document.getElementById("tab1");
+            element1.classList.remove("slds-is-active");
+            var element12 = document.getElementById("tab-default-1");
+            element12.classList.remove("slds-show");
+            element12.classList.add("slds-hide");
+            
+            
+            var element2 = document.getElementById("tab2");
+            element2.classList.add("slds-is-active");
+            var element21 = document.getElementById("tab-default-2");
+            element21.classList.remove("slds-hide");
+            element21.classList.add("slds-show");
+        }
+        else if(asd =='tab-default-1__item')
+        {
+            var element1 = document.getElementById("tab2");
+            element1.classList.remove("slds-is-active");
+            var element12 = document.getElementById("tab-default-2");
+            element12.classList.remove("slds-show");
+            element12.classList.add("slds-hide");
+            
+            
+            var element2 = document.getElementById("tab1");
+            element2.classList.add("slds-is-active");
+            var element21 = document.getElementById("tab-default-1");
+            element21.classList.remove("slds-hide");
+            element21.classList.add("slds-show");
+        }
+    }
+    </script>
+    <apex:form id="theForm" >
+        <div class="slds-tabs_default">
+            <ul class="slds-tabs_default__nav" role="tablist">
+                <li class="slds-tabs_default__item slds-is-active" title="Item One" role="presentation" id="tab1" style="margin-left: 45%;">
+                    <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="0" aria-selected="true" onclick="switchTab(this.id);" aria-controls="tab-default-1" id="tab-default-1__item">Authentication</a>
+                </li>
+                <li class="slds-tabs_default__item" title="Item Two" role="presentation" id="tab2" >
+                    <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="-1" aria-selected="false" onclick="switchTab(this.id);" aria-controls="tab-default-2" id="tab-default-2__item">Setup</a>
+                </li>
+            </ul>
+            <div id="tab-default-1" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-default-1__item">
+                <apex:pageblock >
+                    <style>
+                        .bPageBlock {
+                        background-color: white !important;
+                        border-color:white !important;
+                        }
+                    </style>
+                    <apex:pageMessages ></apex:pageMessages>
+                    <div class="slds-align_absolute-center" style="padding-top:50px;">
+                        
+                        <apex:image id="theImage" value="{!$Resource.QuickBooks_Logo}" width="500" height="300" />
+                    </div>
+                    <apex:outputPanel rendered="{!!button}">
+
+                    <!-- Buttons to authenticate with Quickbook Production or sandbox -->
+                        <div align="center" draggable="false" style="padding-top:50px;" class="slds-tabs_default__content slds-show">
+                            <apex:commandButton action="{!doAuthorizationQuickBooks}" value="QuickBooks Production" styleClass="buttonStyle"  id="Production"  style="background:LightBlue;width:200px;height:50px;" >
+                            </apex:commandButton>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <apex:commandButton action="{!doAuthorizationQuickBooksSandbox}" value="QuickBooks Sandbox" styleClass="buttonStyle"  id="Sandbox" style="background:LightBlue;width:200px;height:50px;" >
+                            </apex:commandButton>
+                            
+                            
+                            
+                        </div>
+                    </apex:outputPanel>
+                    <!--Button to close the vf page-->
+                    <apex:outputPanel rendered="{!button}">
+                        <div align="center" draggable="false" style="padding-top:50px;" class="slds-tabs_default__content slds-show">
+                            <apex:commandButton value="Close" styleClass="buttonStyle" style="background:LightBlue;width:200px;height:50px;" onclick="closeWin()" />
+                        </div>
+                    </apex:outputPanel>
+                </apex:pageblock>
+            </div>
+            <apex:pageBlock >
+                <div id="tab-default-2" class="slds-tabs_default__content slds-hide" role="tabpanel" aria-labelledby="tab-default-2__item">
+                    
+                    <div class="slds-align_absolute-center" style="padding-top:50px;"> 
+                        <apex:image id="theImage" value="{!$Resource.CypressLearningSolutions}" width="800" height="500" />
+                    </div>
+                    <div style="width: 56%; margin-top: 5%;margin-left: 23%;">
+                        Here you can sync your customer and company data from Quickbook to Salesforce. Company data will be stored in account and customer data will be stored in customer object in Salesforce.
+                        Customers are linked with account so you can easily find them in the related list of account object. <br/>
+                        <b>Note: Once the sync is turned on you can never turn it off.</b>
+                    </div>
+                    <!-- LWC component for sync functionality -->
+                    <apex:includeLightning />
+                    <div id="LcDisplayId" style=" margin-top: 2%;"/>
+                    <script>
+                    $Lightning.use("c:syncCustomerApp", function() { 
+                        $Lightning.createComponent("c:syncCustomer",{  },"LcDisplayId",function(component) {   });
+                    });
+                    </script>
+                </div>
+            </apex:pageBlock>
+        </div>
+    </apex:form>
+</apex:page>

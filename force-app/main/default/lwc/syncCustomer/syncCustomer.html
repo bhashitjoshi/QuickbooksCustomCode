@@ -1,0 +1,33 @@
+<!--
+  @description       : This is the component from which we sync the customers of quickbok in salesforce.
+  @author            : Ashish Sharma
+  @group             : 
+  @last modified on  : 09-14-2020
+  Modifications Log 
+  Ver   Date         Author          Modification
+  1.0   09-14-2020   Ashish Sharma   Initial Version
+-->
+ <template>
+  <lightning-card>
+    
+    <template if:true={visible}>
+      <div style="position:absolute;top:-22rem;left:1rem;right:1rem">
+          <div class="slds-notify_container slds-is-relative">
+              <div class="slds-notify slds-notify_toast slds-theme_default slds-box slds-box_small" style="border-color:green;" role="success">
+              <div class="slds-align_absolute-center">
+                  <h2 class="slds-text-heading_large" style="color:green;">It will take 5 - 10 minutes to sync!!</h2>
+                  <lightning-icon icon-name="utility:success" alternative-text="success" variant="Success" size="small" ></lightning-icon>
+              </div>
+              </div>
+          </div>
+      </div>
+  </template>
+    <template if:true={loaded}>
+        <lightning-input type="toggle" style="padding-left:40%;" label="Do you want to sync QuickBooks Customers?" checked disabled></lightning-input>
+     
+    </template>
+    <template if:false={loaded}>
+        <lightning-input type="toggle" style="padding-left:40%;" label="Do you want to sync QuickBooks Customers?" onchange={handleClick}></lightning-input>
+    </template>
+  </lightning-card>
+</template>

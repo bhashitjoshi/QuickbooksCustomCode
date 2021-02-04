@@ -1,0 +1,19 @@
+<aura:component controller="updateInvoiceButtonApex" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader" access="global" >
+   <!--  <c:updateInvoiceButtonLwc recordId="{!v.recordId}" ></c:updateInvoiceButtonLwc>-->
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}" access="global" />
+    <aura:attribute access="private" name="error" type="String" default=""/>
+    <aura:attribute access="private" name="success" type="String" default=""/>
+    
+    
+     <aura:if isTrue="{! !empty(v.success)}">
+    <ui:message title="Confirmation" severity="confirm" closable="true">
+        {!v.success}
+    </ui:message>
+    </aura:if>
+    
+     <aura:if isTrue="{! !empty(v.error)}">
+    <ui:message title="Error" severity="error" closable="true">
+        {!v.error}
+    </ui:message>
+    </aura:if>
+</aura:component>

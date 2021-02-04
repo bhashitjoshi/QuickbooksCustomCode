@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>invoice_status</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+ISPICKVAL( PRIORVALUE ( Status__c), &quot;Paid&quot;),
+NOT(ISPICKVAL(Status__c, &apos;Paid&apos;))
+)
+||
+AND(
+ISPICKVAL( PRIORVALUE ( Status__c), &quot;Not paid&quot;),
+NOT(ISPICKVAL(Status__c, &apos;Paid&apos;) || ISPICKVAL(Status__c, &apos;Not Paid&apos;))
+)</errorConditionFormula>
+    <errorMessage>You can not change the status</errorMessage>
+</ValidationRule>

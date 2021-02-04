@@ -1,0 +1,12 @@
+<!--
+  @description       : This is use to stop users from creating invoice from salesforce standard button. In this newInvoice LWC component is used.
+  @author            : Ashish Sharma
+  @group             : 
+  @last modified on  : 09-14-2020
+  Modifications Log 
+  Ver   Date         Author         Modification
+  1.0   09-14-2020   Ashish Sharma   Initial Version
+-->
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:actionOverride" access="global" >
+    <c:newInvoice/>
+</aura:component>

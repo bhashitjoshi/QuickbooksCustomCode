@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Quickbooks Access Token</label>
+    <protected>false</protected>
+    <values>
+        <field>Access_Token__c</field>
+        <value xsi:type="xsd:string">ZXlKbGJtTWlPaUpCTVRJNFEwSkRMVWhUTWpVMklpd2lZV3huSWpvaVpHbHlJbjAuLnFfY25sYVhFMWxZVDVBZWhHOVgxNHcuZk9VWHZ2ajJCT0tiQ1JGMldpYm5udVY0RFdfVE1pRmhONU51bXZZOXBJLWVRM09NZlViNDBqTk9fYVBtVDNSTUFMRU02RlBra1lCUXQxUVUxVk9DTDdFV1VGZ3NyVWZxbF9aMHlrTnBtR0dnZm5IaFRFUTFMR0FOZEZmV2FNNVE3a0tzcjZDTUVIdVMyYlhfYi1hbXlBMXotbzRtanFaVDJ3eUxDdEN5MC14NVVUZ1REOC1LbXVqMU1xNWl2VGIyNXBZTXRXTXVnbXR4blJ1QUVBSExLanJaTE9iRUZVZHotMjg1cXZjeWQ1YXhoRGZDam1UR2gtZGFsekJHTlJBdjJKTDUxdXRqZzg2UF9JSGloN2w1QlRGZkFHNDZycTBHU09VYWNXOW9kOTktdEZLSWF1cDNZeHM5QXc4dWU3WFZDWFJReFpEbFpaV3V0TkhMZEhmLWRsZ2s2X2pGY2pjRmw0ZDBHeHJxX1dMY3kyNlNtcThHWkk5YjJnVmxpaE1sYm5ZV3d3Z29tUnBhdGNaUXo5OVNpamFiRUpCcTF0bmE2V252RTVRLTZPeHZpUmNoMXB4VzZmVlpDMzRsaUE4OWljOXMtajRCREZGQlI1RkZEQUJVMi1tTGZibXVPU1RBMl9iS2p1OTBQdkd6NVEwa3hURW9DNlVBcWVGbmtnQ1pEUi1pMEpYaVNxemdxYkJCLUR3STQ5MWowdkU2SGxPOTRCemxVSnBpbmNKZk5mOW8ya1JlNDNldFVCOWJvWGdtQ2RRb1h3SmJDTlZXOFozbjRFa1VhaVdxRlVjS0hKd3dHM2Vob3ZqVVZObWxyVXhyYWk3cGlRTkpqd21KcmdKdlBEcEktZ3Nzak5ZZnFGeVF2aG5SUzNWS3I4SndTTHdNYjBST2tOS3FaeW9IU0hsdUZmWG1va1VuWWRQUG5vYjNFRXo4Mm5fMGlkWkgtalUtTUNDYzhZaTdFN1RKNXNSMEhiOWpyU1hNR2FJRHAzOHZMZld6cUhwVzVkOUFKUDdFLkpFaUk5Y3Y5Rlh5bEF0TURKY29nTUE=</value>
+    </values>
+    <values>
+        <field>Company_Id__c</field>
+        <value xsi:type="xsd:string">4620816365152394930</value>
+    </values>
+    <values>
+        <field>Environment__c</field>
+        <value xsi:type="xsd:string">Sandbox</value>
+    </values>
+    <values>
+        <field>Expires_in_Seconds__c</field>
+        <value xsi:type="xsd:double">3600.0</value>
+    </values>
+    <values>
+        <field>Refresh_Token_Expires_in__c</field>
+        <value xsi:type="xsd:double">8664982.0</value>
+    </values>
+    <values>
+        <field>Refresh_Token__c</field>
+        <value xsi:type="xsd:string">QUIxMTYyMTA4MTU4MzBoNjZRdHRLN0Nib2lMOHd1aVZabWdCTWs1SzZ6aDBBMGJzcGk=</value>
+    </values>
+</CustomMetadata>
